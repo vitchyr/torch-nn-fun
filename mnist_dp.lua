@@ -1,6 +1,8 @@
 -- See http://on-demand.gputechconf.com/gtc/2015/webinar/torch7-applied-deep-learning-for-vision-natural-language.mp4
 local nn = require 'nn'
 local dp = require 'dp'
+local cutorch = require 'cutorch'
+local cunn = require 'cunn'
 
 local cnn = nn.Sequential()
 cnn:add(nn.Convert('bhwc', 'bchw')) -- cast input to same type as cnn
@@ -51,4 +53,6 @@ xp = dp.Experiment{
 }
 
 local ds = dp.Mnist{input_preprocess = input_preprocess}
+
+--xp:cuda()
 xp:run(ds)
